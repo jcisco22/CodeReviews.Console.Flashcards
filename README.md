@@ -1,4 +1,4 @@
-Flashcards Project
+# Flashcards Project
 ------------------
 
 The user needs a system that manages their revision flashcards.
