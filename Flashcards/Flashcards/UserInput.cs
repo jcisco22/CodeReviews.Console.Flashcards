@@ -277,7 +277,7 @@ public class Input
             Console.Clear();
             Console.WriteLine($"Front: {card.Front}");
             Console.WriteLine("\nPress any key to see the answer...");
-            Console.ReadKey();
+            Console.ReadLine();
 
 
             Console.WriteLine($"Back: {card.Back}");
@@ -307,7 +307,7 @@ public class Input
 
         Console.Clear();
         Console.WriteLine("Welcome to the study sessions area where you will test you knowledge!\nPress any key to continue.");
-        Console.ReadKey();
+        Console.ReadLine();
         Console.WriteLine("\nAre you ready to test your knowledge? (Y/N)");
         string answer = Console.ReadLine().ToLower().Trim();
 
@@ -323,7 +323,7 @@ public class Input
             Console.WriteLine("Please enter the ID of the stack you want to study: ");
             stackId = Validation.ValidateId(Console.ReadLine());
             Input.StartSession();
-            Console.ReadKey();
+            Console.ReadLine();
             return;
         }
 
