@@ -108,7 +108,7 @@ class DatabaseController
             connection.Execute("INSERT INTO Stack (Name) VALUES (@Name)", new { Name = stackInput });
 
             Console.WriteLine("Stack Inserted.\nPress any key to return to main menu.");
-            Console.ReadKey();
+            Console.ReadLine();
         }
     }
 
@@ -150,8 +150,12 @@ class DatabaseController
             if (rowsAffected == 0)
                 Console.WriteLine("No stack found with that name.");
             else
-                Console.WriteLine("Stack Updated.");
+             Console.WriteLine("Stack Updated.");
+             Console.ReadKey();
+
         }
+                    Console.ReadKey();
+
 
     }
 
