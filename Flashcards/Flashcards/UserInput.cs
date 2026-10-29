@@ -100,7 +100,6 @@ public class Input
         }
     }
 
-
     public static void InsertStackInput()
     {
         Console.WriteLine("Please enter the name of your revision stack.");
@@ -149,10 +148,6 @@ public class Input
 
         DatabaseController.UpdateStackByName(OldName, NewName);
     }
-
-
-
-
     public static void ManageFlashcards()
     {
 
@@ -213,12 +208,8 @@ public class Input
         Console.Clear();
         Console.WriteLine("Please enter the front and back of your flashcard when prompted.\n");
 
-        Console.WriteLine("Front: ");
-
-        string front = Console.ReadLine();
-
-        Console.WriteLine("Back: ");
-        string back = Console.ReadLine();
+        string front = Validation.GetNonEmptyInput("Front: ");
+        string back = Validation.GetNonEmptyInput("Back: ");
 
         DatabaseController.InsertFlashcard(front, back, stackId);
     }
@@ -227,15 +218,12 @@ public class Input
     {
         Console.Clear();
         DatabaseController.ViewFlashcardRecords(stackId);
-
-        Console.WriteLine("Please enter the ID of the record you would like to delete.");
-        string delInput = Console.ReadLine();
+        string delInput = Validation.GetNonEmptyInput("Please enter the ID of the record you would like to delete. ");
 
         int finalInput = Validation.ValidateId(delInput);
 
         DatabaseController.DeleteFlashcard(finalInput, stackId);
     }
-
     public static void UpdateFlashcardInput()
     {
         Console.Clear();
@@ -255,15 +243,6 @@ public class Input
 
         DatabaseController.UpdateFlashcard(updateInput, stackId, front, back);
     }
-
-
-
-
-    /// <summary>
-    /// Session 
-    /// </summary>
-
-
 
     public static void StartSession()
     {
