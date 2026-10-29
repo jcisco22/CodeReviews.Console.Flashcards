@@ -102,14 +102,13 @@ public class Input
 
     public static void InsertStackInput()
     {
-        Console.WriteLine("Please enter the name of your revision stack.");
-        Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
 
-        string stackInput = Console.ReadLine();
+        // Console.WriteLine("Please enter the name of your revision stack.");
+        // Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
+        string stackName = Validation.GetNonEmptyInput("Please enter the name of your revision stack.\nEnter 0 if you would like to return to main menu. ");
+        if (stackName == "0") return;
 
-        if (stackInput == "0") GetUserInput();
-
-        DatabaseController.InsertStack(stackInput);
+        DatabaseController.InsertStack(stackName);
     }
 
     public static void DeleteStackInput()
@@ -117,14 +116,10 @@ public class Input
         Console.Clear();
         DatabaseController.ViewStackRecords();
 
-        Console.WriteLine("Please enter the name of the revision stack you would like to delete.");
-        Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
-        string name = Console.ReadLine();
+        string delStack = Validation.GetNonEmptyInput("Please enter the name of the revision stack you'd like deleted.\nEnter 0 if you would like to return to main menu.");
+        if (delStack == "0") return;
 
-        if (name == "0") return;
-
-        DatabaseController.DeleteStackByName(name);
-        //insert delinput into the delete method.
+        DatabaseController.DeleteStackByName(delStack);
 
     }
 
@@ -132,18 +127,12 @@ public class Input
     {
         Console.Clear();
         DatabaseController.ViewStackRecords();
-        Console.WriteLine("Please enter the name of the stack you would like to update.");
-        Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
 
-        string OldName = Console.ReadLine();
-
+        string OldName = Validation.GetNonEmptyInput("Please enter the name of the stack you would like to update.\nEnter 0 if you would like to return to main menu.");
         if (OldName == "0") return;
 
-        Console.WriteLine("Please enter the Name you would like the new stack to be.");
-        Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
 
-        string NewName = Console.ReadLine();
-
+        string NewName = Validation.GetNonEmptyInput("Please enter the Name you would like the new stack to be.\nEnter 0 if you would like to return to main menu.");
         if (NewName == "0") return;
 
         DatabaseController.UpdateStackByName(OldName, NewName);
@@ -218,6 +207,7 @@ public class Input
     {
         Console.Clear();
         DatabaseController.ViewFlashcardRecords(stackId);
+        
         string delInput = Validation.GetNonEmptyInput("Please enter the ID of the record you would like to delete. ");
 
         int finalInput = Validation.ValidateId(delInput);
@@ -235,11 +225,8 @@ public class Input
 
         Console.WriteLine("Please enter the front and back of your flashcard to update when prompted.\n");
 
-        Console.WriteLine("Front");
-        string front = Console.ReadLine();
-
-        Console.WriteLine("Back");
-        string back = Console.ReadLine();
+        string front = Validation.GetNonEmptyInput("Front: ");
+        string back = Validation.GetNonEmptyInput("Back: ");
 
         DatabaseController.UpdateFlashcard(updateInput, stackId, front, back);
     }
