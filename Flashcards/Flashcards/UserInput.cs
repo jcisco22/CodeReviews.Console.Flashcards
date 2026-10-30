@@ -1,6 +1,5 @@
 public class Input
 {
-    //handles the menu and user input
     private static int stackId;
 
     public static void GetUserInput()
@@ -102,9 +101,6 @@ public class Input
 
     public static void InsertStackInput()
     {
-
-        // Console.WriteLine("Please enter the name of your revision stack.");
-        // Console.WriteLine("\nEnter 0 if you would like to return to main menu.");
         string stackName = Validation.GetNonEmptyInput("Please enter the name of your revision stack.\nEnter 0 if you would like to return to main menu. ");
         if (stackName == "0") return;
 
@@ -120,7 +116,6 @@ public class Input
         if (delStack == "0") return;
 
         DatabaseController.DeleteStackByName(delStack);
-
     }
 
     public static void UpdateStackInput()
@@ -131,7 +126,6 @@ public class Input
         string OldName = Validation.GetNonEmptyInput("Please enter the name of the stack you would like to update.\nEnter 0 if you would like to return to main menu.");
         if (OldName == "0") return;
 
-
         string NewName = Validation.GetNonEmptyInput("Please enter the Name you would like the new stack to be.\nEnter 0 if you would like to return to main menu.");
         if (NewName == "0") return;
 
@@ -141,8 +135,16 @@ public class Input
     {
 
         DatabaseController.ViewStackRecords();
-        Console.WriteLine("Enter the ID of the stack to manage: ");
+        Console.WriteLine("Enter the ID of the stack to manage or enter 0 to return: ");
         stackId = Validation.ValidateId(Console.ReadLine());
+
+        while (stackId != 0 && !DatabaseController.StackExists(stackId))
+        {
+            Console.WriteLine("No stack with that ID. Please try again or enter 0 to return: ");
+            stackId = Validation.ValidateId(Console.ReadLine());
+        }
+
+        if (stackId == 0) return;
 
         bool start = false;
         while (start == false)
@@ -186,7 +188,6 @@ public class Input
                 default:
                     Console.WriteLine("Please enter a value between 1 & 4");
                     break;
-
             }
 
         }
@@ -207,7 +208,7 @@ public class Input
     {
         Console.Clear();
         DatabaseController.ViewFlashcardRecords(stackId);
-        
+
         string delInput = Validation.GetNonEmptyInput("Please enter the ID of the record you would like to delete. ");
 
         int finalInput = Validation.ValidateId(delInput);
@@ -234,8 +235,6 @@ public class Input
     public static void StartSession()
     {
         int score = 0;
-        // DatabaseController.ViewFlashcardRecords(stackId);
-
         List<FlashcardDTO> cards = DatabaseController.GetFlashcards(stackId);
 
         foreach (var card in cards)

@@ -98,7 +98,6 @@ class DatabaseController
 
     }
 
-
     public static void InsertStack(string stackInput)
     {
         Console.Clear();
@@ -150,11 +149,11 @@ class DatabaseController
             if (rowsAffected == 0)
                 Console.WriteLine("No stack found with that name.");
             else
-             Console.WriteLine("Stack Updated.");
-             Console.ReadKey();
+                Console.WriteLine("Stack Updated.");
+            Console.ReadKey();
 
         }
-                    Console.ReadKey();
+        Console.ReadKey();
 
 
     }
@@ -200,8 +199,8 @@ class DatabaseController
 
             Console.WriteLine("Flashcard Inserted.\nPress any key to return to main menu.");
             Console.ReadKey();
-        }
 
+        }
     }
 
     public static void DeleteFlashcard(int input, int stackId)
@@ -297,18 +296,27 @@ class DatabaseController
         }
     }
 
-//     public static bool StackNameExists(string name)
-// {
-//     var controller = new DatabaseController();
+    //     public static bool StackNameExists(string name)
+    // {
+    //     var controller = new DatabaseController();
 
-//     using (var connection = new SqlConnection(connectionString))
-//     {
-//         int count = connection.ExecuteScalar<int>(
-//             "SELECT COUNT(*) FROM Stack WHERE Name = @Name",
-//             new { Name = name });
-//         return count > 0;
-//     }
-// }
+    //     using (var connection = new SqlConnection(connectionString))
+    //     {
+    //         int count = connection.ExecuteScalar<int>(
+    //             "SELECT COUNT(*) FROM Stack WHERE Name = @Name",
+    //             new { Name = name });
+    //         return count > 0;
+    //     }
+    // }
+
+    public static bool StackExists(int id)
+    {
+        using var connection = new SqlConnection(connectionString);
+
+        return connection.ExecuteScalar<bool>(
+            "SELECT CASE WHEN EXISTS (SELECT 1 FROM Stack WHERE Id = @Id) THEN 1 ELSE 0 END",
+            new { Id = id });
+    }
 
 }
 

@@ -32,8 +32,4 @@ public class Validation
         return input.Trim();
     }
 
-
-
-
-
 }
